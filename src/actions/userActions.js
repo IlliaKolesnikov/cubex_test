@@ -10,3 +10,11 @@ export function getData() {
     }) 
   };
 }
+
+
+export function searchContact(stringToFind) {
+  return {
+    type: 'FIND_CONTACT',
+    payload: stringToFind
+  };
+}

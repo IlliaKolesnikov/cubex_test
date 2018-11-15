@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import App from '../components/App';
-import {getData} from '../actions/userActions'
+import { getData, searchContact } from '../actions/userActions';
 
 
 function mapStateToProps(state){
@@ -9,10 +9,11 @@ function mapStateToProps(state){
     }
 }
 
-function mapDispatchToProps(dispatch){
-    return {
-        getData: ()=>dispatch(getData()),
-    }
+function mapDispatchToProps(dispatch) {
+  return {
+    getData: () => dispatch(getData()),
+    searchContact: stringToFind => dispatch(searchContact(stringToFind))
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
