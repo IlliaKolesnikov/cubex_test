@@ -20,8 +20,8 @@ export function searchContact(stringToFind) {
 }
 
 export function addContact(contactToAdd, contactList) {
-  if(contactToAdd.img === ''){
-    contactToAdd.img = 'http://www.gigtime.co/assets/fallback/default_user_avatar_huge.jpg'
+  if (contactToAdd.img === '') {
+    contactToAdd.img = 'http://www.gigtime.co/assets/fallback/default_user_avatar_huge.jpg';
   }
   const addNew = databaseRef.child('data/'+ contactList.length);
   addNew.update({
@@ -36,7 +36,6 @@ export function addContact(contactToAdd, contactList) {
     }
   });
   return {
-      type: "USER_ADDED"
+    type: 'USER_ADDED'
   }
-  console.log("USER ADDED")
 }

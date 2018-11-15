@@ -10,8 +10,16 @@ class App extends Component {
   state = { value: '', open: false }
 
     handleSearchChange = (e, { value }) => {
-      this.setState({ value })
+      this.setState({ value });
       this.props.searchContact(value);
+    }
+
+    handleClose = (value) =>{
+      this.setState({ open: value });
+    }
+
+    handleOpen = (value) => {
+      this.setState({ open: value });
     }
 
     render() {
@@ -32,8 +40,12 @@ class App extends Component {
                     value={ this.state.value }
                     input={ { fluid: true }} />
                 <Menu fluid vertical className="nomargin">
-                  <MyModal addContact={this.props.addContact}
-            contactList={phonebook.data}/>
+                  <MyModal
+                    addContact={this.props.addContact}
+                    onOpen={this.handleOpen}
+                    contactList={phonebook.data}
+                    open={this.state.open}
+                    onClose={this.handleClose}/>
                { phonebook.filteredData.map((item, index) => {
                  return (
                 <Menu.Item
@@ -56,8 +68,6 @@ class App extends Component {
                })
             }
           </Menu>
-            </Grid.Column>
-            <Grid.Column className="fullviewport nopadding" stretched width={12}>
             </Grid.Column>
         </Grid.Row>
      </Grid>

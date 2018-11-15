@@ -4,24 +4,31 @@ import NumberFormat from 'react-number-format';
 
 
 export default class MyModal extends Component {
-    state= { 
+    state = {
       firstName: '',
       lastName: '',
-      number: '',
+      number: '0',
       email: '',
       error: null,
       img: ''
     }
 
+
     handleChange = field => (event) => {
       this.setState({ [field]: event.target.value });
     }
 
+    componentWillMount() {
+      this.initialState = this.state
+    }
+
     validationCheck = () => {
       if (this.state.firstName.trim() !== '') {
-        if (this.state.number[13] !== '_') {
+        if (this.state.number[13] !== '_' && this.state.number[1] === '0' ) {
           if (this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) !== null) {
             this.props.addContact(this.state, this.props.contactList);
+            this.setState(this.initialState);
+            this.props.onClose(false);
           }
           else {
             this.setState({ error: 'The email is not valid' });
@@ -39,8 +46,9 @@ export default class MyModal extends Component {
     render() {
       const { firstName, lastName, number, email, error, img } = this.state;
       return (
-        <Modal size={'tiny'}
-        trigger={<Button color='green'>
+        <Modal size={'tiny'} open={this.props.open}
+        trigger={<Button onClick={() => this.props.onOpen(true)}
+        color='green'>
             <Icon name='add circle' />Add contact</Button>}>
             <Modal.Header>Add new User</Modal.Header>
             <Modal.Content image>
@@ -52,11 +60,12 @@ export default class MyModal extends Component {
                 onChange={this.handleChange('number')} value={number}
                  /> <br />
                 <Input placeholder="email" onChange={this.handleChange('email')} value={email} /> <br />
-                <Input placeholder="url of image" onChange={this.handleChange('img')} value={img} /> 
+                <Input placeholder="url of image" onChange={this.handleChange('img')} value={img} />
                 {error != null ? <div><Label color='red'>{error}</Label></div> : null}
             </Modal.Description>
             </Modal.Content>
             <Modal.Actions>
+                <Button color="red" onClick={() => this.props.onClose(false)}>Cancel</Button>
                 <Button color='green' onClick={() => this.validationCheck()} inverted>
                     Add contact
                 </Button>
