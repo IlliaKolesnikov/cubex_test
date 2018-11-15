@@ -7,7 +7,7 @@ class App extends Component {
     this.props.getData();
   }
 
-  state = { value: '' }
+  state = { value: '', open: false }
 
     handleSearchChange = (e, { value }) => {
       this.setState({ value })
@@ -32,6 +32,8 @@ class App extends Component {
                     value={ this.state.value }
                     input={ { fluid: true }} />
                 <Menu fluid vertical className="nomargin">
+                  <MyModal addContact={this.props.addContact}
+            contactList={phonebook.data}/>
                { phonebook.filteredData.map((item, index) => {
                  return (
                 <Menu.Item
@@ -53,8 +55,6 @@ class App extends Component {
                 </Menu.Item>);
                })
             }
-            <MyModal addContact={this.props.addContact}
-            contactList={phonebook.data}/>
           </Menu>
             </Grid.Column>
             <Grid.Column className="fullviewport nopadding" stretched width={12}>

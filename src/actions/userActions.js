@@ -20,11 +20,15 @@ export function searchContact(stringToFind) {
 }
 
 export function addContact(contactToAdd, contactList) {
+  if(contactToAdd.img === ''){
+    contactToAdd.img = 'http://www.gigtime.co/assets/fallback/default_user_avatar_huge.jpg'
+  }
   const addNew = databaseRef.child('data/'+ contactList.length);
   addNew.update({
     general: {
       firstName: contactToAdd.firstName,
-      lastName: contactToAdd.lastName
+      lastName: contactToAdd.lastName,
+      photo: contactToAdd.img
     },
     contact: {
       email: contactToAdd.email,

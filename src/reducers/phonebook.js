@@ -9,6 +9,8 @@ const initialState = {
 function phonebook(state = initialState, action) {
   switch (action.type) {
     case 'SET_DATA':
+        let reversed = action.payload.reverse();
+        console.log(reversed)
       return { ...state, data: action.payload, filteredData: action.payload, isFetching: false };
     case 'FIND_CONTACT':
       const isMatch = (result) => { 
