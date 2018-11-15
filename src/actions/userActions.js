@@ -1,4 +1,4 @@
-import { data } from '../firebase.js';
+import { data, databaseRef } from '../firebase.js';
 
 export function getData() {
   return (dispatch) => {
@@ -17,4 +17,22 @@ export function searchContact(stringToFind) {
     type: 'FIND_CONTACT',
     payload: stringToFind
   };
+}
+
+export function addContact(contactToAdd, contactList) {
+  const addNew = databaseRef.child('data/'+ contactList.length);
+  addNew.update({
+    general: {
+      firstName: contactToAdd.firstName,
+      lastName: contactToAdd.lastName
+    },
+    contact: {
+      email: contactToAdd.email,
+      phone: contactToAdd.number
+    }
+  });
+  return {
+      type: "USER_ADDED"
+  }
+  console.log("USER ADDED")
 }

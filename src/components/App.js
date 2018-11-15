@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Menu, Grid, Search, Image } from 'semantic-ui-react';
+import MyModal from './Modal';
 
 class App extends Component {
   componentDidMount() {
@@ -52,6 +53,8 @@ class App extends Component {
                 </Menu.Item>);
                })
             }
+            <MyModal addContact={this.props.addContact}
+            contactList={phonebook.data}/>
           </Menu>
             </Grid.Column>
             <Grid.Column className="fullviewport nopadding" stretched width={12}>
